@@ -18,9 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class BooksRouteBuilder extends RouteBuilder{
 	
-	@Autowired
-	private Environment env;
-	
 
 	@Override
 	public void configure() throws Exception {

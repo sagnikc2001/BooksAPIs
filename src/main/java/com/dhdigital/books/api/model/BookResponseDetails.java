@@ -1,5 +1,6 @@
 package com.dhdigital.books.api.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,6 +28,10 @@ public class BookResponseDetails {
 
 	@JsonProperty("pages")
 	private int pages;
+	
+	@Autowired
+	@JsonProperty("buyLink")
+	private BookBuy bookBuy;
 
 //	Getters and Setters
 
@@ -86,6 +91,14 @@ public class BookResponseDetails {
 		this.pages = pages;
 	}
 
+	public BookBuy getBookBuy() {
+		return bookBuy;
+	}
+
+	public void setBookBuy(BookBuy bookBuy) {
+		this.bookBuy = bookBuy;
+	}
+	
 //	Default Constructor
 
 	public BookResponseDetails() {
@@ -95,7 +108,7 @@ public class BookResponseDetails {
 //	Parameterized Constructor
 
 	public BookResponseDetails(String name, String authorName, String publisher, int price, String genre,
-			String language, int pages) {
+			String language, int pages, BookBuy bookBuy) {
 		super();
 		this.name = name;
 		this.authorName = authorName;
@@ -104,16 +117,15 @@ public class BookResponseDetails {
 		this.genre = genre;
 		this.language = language;
 		this.pages = pages;
+		this.bookBuy = bookBuy;
 	}
-	
-//	toString
 
+//	toString
+	
 	@Override
 	public String toString() {
 		return "BookResponseDetails [name=" + name + ", authorName=" + authorName + ", publisher=" + publisher
-				+ ", price=" + price + ", genre=" + genre + ", language=" + language + ", pages=" + pages + "]";
+				+ ", price=" + price + ", genre=" + genre + ", language=" + language + ", pages=" + pages + ", bookBuy="
+				+ bookBuy + "]";
 	}
-	
-	
-
 }

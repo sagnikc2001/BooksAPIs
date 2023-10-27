@@ -1,13 +1,22 @@
 package com.dhdigital.books.api.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.camel.Exchange;
 import org.springframework.stereotype.Service;
 import org.apache.camel.Message;
 
+import com.dhdigital.books.api.model.AuthorBooks;
+import com.dhdigital.books.api.model.AuthorDetails;
+import com.dhdigital.books.api.model.BookBuy;
 import com.dhdigital.books.api.model.BookRequest;
 import com.dhdigital.books.api.model.BookRequestDetails;
 import com.dhdigital.books.api.model.BookResponse;
 import com.dhdigital.books.api.model.BookResponseDetails;
+import com.dhdigital.books.api.model.backend.AuthorBooksBackend;
+import com.dhdigital.books.api.model.backend.AuthorDetailsBackend;
+import com.dhdigital.books.api.model.backend.BookBuyBackend;
 import com.dhdigital.books.api.model.backend.BookRequestBackend;
 import com.dhdigital.books.api.model.backend.BookRequestDetailsBackend;
 import com.dhdigital.books.api.model.backend.BookResponseBackend;
@@ -47,13 +56,13 @@ public class BookService {
 		
 		BookResponseBackend bookResponseBackend = oMessage.getBody(BookResponseBackend.class); // Getting BookResponseBackend body from Route Body
 		
-		BookResponseDetailsBackend bookResponseDetailsBackend = new BookResponseDetailsBackend(); // Creating new object of BookRequestBackend class
+		BookResponseDetailsBackend bookResponseDetailsBackend = new BookResponseDetailsBackend(); // Creating new object of BookRequestBackend backend class
 		
 		bookResponseDetailsBackend = bookResponseBackend.getBookResponseDetailsBackend(); // Setting content of newly created bookResponseDetailsBackend objects equal to getBookResponseDetailsBackend we got from Body
 		
-		BookResponseDetails bookResponseDetails = new BookResponseDetails();
+		BookResponseDetails bookResponseDetails = new BookResponseDetails(); // Creating new object of BookResponseDetails class
 		
-		BookResponse bookResponse = new BookResponse();
+		BookResponse bookResponse = new BookResponse(); // Creating new object of BookResponse class
 		
 //		Setting values from bookResponseDetailsBackend backend object to bookResponseDetails frontend object
 		
@@ -65,7 +74,56 @@ public class BookService {
 		bookResponseDetails.setPrice(bookResponseDetailsBackend.getBookPrice());
 		bookResponseDetails.setPublisher(bookResponseDetailsBackend.getPublisherName());
 		
-		bookResponse.setBookResponseDetails(bookResponseDetails);
+		BookBuyBackend bookBuyBackend = new BookBuyBackend(); // Creating new object of BookBuyBackend backend class
+		bookBuyBackend = bookResponseDetailsBackend.getBookBuyBackend(); // Setting newly created object bookBuyBackend equal to the getBookBuyBackend from bookResponseDetailsBackend
+		
+		BookBuy bookBuy = new BookBuy(); // Creating new object of BookBuy frontend class
+		
+//		Setting values from bookBuyBackend backend object to bookBuy frontend object
+		
+		bookBuy.setAmazonBuyLink(bookBuyBackend.getAmazonBuyLink());
+		bookBuy.setFlipkartBuyLink(bookBuyBackend.getFlipkartBuyLink());
+		
+		bookResponseDetails.setBookBuy(bookBuy); // Setting bookBuy frontend object to bookResponseDetails frontend object
+		
+		bookResponse.setBookResponseDetails(bookResponseDetails); // Setting bookResponseDetails frontend object to bookResponse frontend object
+		
+		AuthorDetailsBackend authorDetailsBackend = new AuthorDetailsBackend(); // Creating new object of AuthorDetailsBackend backend class
+		
+		authorDetailsBackend = bookResponseBackend.getAuthorDetailsBackend(); // Setting newly created object authorDetailsBackend equal to the getAuthorDetailsBackend from bookResponseBackend
+		
+		AuthorDetails authorDetails = new AuthorDetails(); // Creating new object of AuthorDetails frontend class
+
+//		Setting values from authorDetailsBackend backend object to authorDetails frontend object
+		
+		authorDetails.setCountry(authorDetailsBackend.getCountry());
+		authorDetails.setName(authorDetailsBackend.getName());
+		authorDetails.setNumberOfBooks(authorDetailsBackend.getNumberOfBooks());
+		authorDetails.setYearBorn(authorDetailsBackend.getYearBorn());
+		
+		List<AuthorBooksBackend> authorBooksBackend = new ArrayList<>(); // Creating new list object of AuthorBooksBackend backend class
+		
+		authorBooksBackend = authorDetailsBackend.getAuthorBooksBackend(); // Setting newly created object authorBooksBackend equal to the getAuthorBooksBackend from authorDetailsBackend
+		
+		List<AuthorBooks> authorBooks = new ArrayList<>(); // Creating new object of AuthorBooks frontend class
+		
+		 // Map each AuthorBooksBackend to AuthorBooks
+		for(AuthorBooksBackend backendBook : authorBooksBackend)
+		{
+			 AuthorBooks authorBook = new AuthorBooks(); // Single entity of authorBook to be added to authorBooks
+			 
+			 authorBook.setBookName(backendBook.getBookName());
+	         authorBook.setPublisher(backendBook.getPublisherName());
+	         authorBook.setGenre(backendBook.getBookGenre());
+	         authorBook.setLanguage(backendBook.getBookLanguage());
+	         authorBook.setPages(backendBook.getBookPages());
+	         authorBooks.add(authorBook);
+		}
+		
+		// Set the mapped authorBooks list in the authorDetails
+        authorDetails.setAuthorBooks(authorBooks);
+		
+		bookResponse.setAuthorDetails(authorDetails);
 		
 		oMessage.setBody(bookResponse); // Setting bookResponse in body of route 
 	}

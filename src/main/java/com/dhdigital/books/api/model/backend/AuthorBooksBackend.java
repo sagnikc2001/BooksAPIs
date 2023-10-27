@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,19 +12,13 @@ import org.springframework.stereotype.Component;
 										// XML) or unmarshalling (converting XML to an object) in the context of XML
 										// binding.
 @XmlRootElement(name = "book") // Setting the XML root element to book -- <book>....</book>
-public class BookResponseDetailsBackend {
+public class AuthorBooksBackend {
 
 	@XmlElement // For naming XML Element same as variable -- <bookName>....</bookName>
 	private String bookName;
 
 	@XmlElement
-	private String authorName;
-
-	@XmlElement
 	private String publisherName;
-
-	@XmlElement
-	private int bookPrice;
 
 	@XmlElement
 	private String bookGenre;
@@ -35,10 +28,6 @@ public class BookResponseDetailsBackend {
 
 	@XmlElement
 	private int bookPages;
-
-	@Autowired
-	@XmlElement(name = "link")
-	private BookBuyBackend bookBuyBackend;
 
 //	Getters and Setters
 
@@ -50,28 +39,12 @@ public class BookResponseDetailsBackend {
 		this.bookName = bookName;
 	}
 
-	public String getAuthorName() {
-		return authorName;
-	}
-
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
-
 	public String getPublisherName() {
 		return publisherName;
 	}
 
 	public void setPublisherName(String publisherName) {
 		this.publisherName = publisherName;
-	}
-
-	public int getBookPrice() {
-		return bookPrice;
-	}
-
-	public void setBookPrice(int bookPrice) {
-		this.bookPrice = bookPrice;
 	}
 
 	public String getBookGenre() {
@@ -98,41 +71,30 @@ public class BookResponseDetailsBackend {
 		this.bookPages = bookPages;
 	}
 
-	public BookBuyBackend getBookBuyBackend() {
-		return bookBuyBackend;
-	}
-
-	public void setBookBuyBackend(BookBuyBackend bookBuyBackend) {
-		this.bookBuyBackend = bookBuyBackend;
-	}
-
 //	Default Constructor
 
-	public BookResponseDetailsBackend() {
+	public AuthorBooksBackend() {
 		super();
 	}
 	
 //	Parameterized Constructor
 
-	public BookResponseDetailsBackend(String bookName, String authorName, String publisherName, int bookPrice,
-			String bookGenre, String bookLanguage, int bookPages, BookBuyBackend bookBuyBackend) {
+	public AuthorBooksBackend(String bookName, String publisherName, String bookGenre, String bookLanguage,
+			int bookPages) {
 		super();
 		this.bookName = bookName;
-		this.authorName = authorName;
 		this.publisherName = publisherName;
-		this.bookPrice = bookPrice;
 		this.bookGenre = bookGenre;
 		this.bookLanguage = bookLanguage;
 		this.bookPages = bookPages;
-		this.bookBuyBackend = bookBuyBackend;
 	}
 	
 //	toString
 
 	@Override
 	public String toString() {
-		return "BookResponseDetailsBackend [bookName=" + bookName + ", authorName=" + authorName + ", publisherName="
-				+ publisherName + ", bookPrice=" + bookPrice + ", bookGenre=" + bookGenre + ", bookLanguage="
-				+ bookLanguage + ", bookPages=" + bookPages + ", bookBuyBackend=" + bookBuyBackend + "]";
+		return "AuthorBooksBackend [bookName=" + bookName + ", publisherName=" + publisherName + ", bookGenre="
+				+ bookGenre + ", bookLanguage=" + bookLanguage + ", bookPages=" + bookPages + "]";
 	}
+	
 }
