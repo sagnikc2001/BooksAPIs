@@ -38,7 +38,7 @@ public class BooksRouteBuilder extends RouteBuilder{
 		
 		
 		
-		from("direct:invoke-book-details")
+		from("direct:invoke-book-details").routeId("bookDetails")
 	    .to("bean:bookService?method=setBookRequestBackend") //Converting from JSON frontend POJO to XML Backend POJO
 	    .marshal().jacksonXml(BookRequestBackend.class) // Marshalling to XML of type BookRequestBackend class
 	    .to("direct:invoke-send-to-backend"); // Direct endpoint to send to the backend
