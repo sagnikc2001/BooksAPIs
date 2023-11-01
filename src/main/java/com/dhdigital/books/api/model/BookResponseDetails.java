@@ -1,11 +1,7 @@
 package com.dhdigital.books.api.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Component
 public class BookResponseDetails {
 
 	@JsonProperty("name")
@@ -29,7 +25,6 @@ public class BookResponseDetails {
 	@JsonProperty("pages")
 	private int pages;
 	
-	@Autowired
 	@JsonProperty("buyLink")
 	private BookBuy bookBuy;
 

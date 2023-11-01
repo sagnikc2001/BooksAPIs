@@ -44,7 +44,7 @@ public class BooksRouteBuilderTest{
 	@Autowired
 	ApplicationContext applicationContext;
 
-	@EndpointInject("mock://"+"{{BACK_END.host}}"+"/Books") // mock://https://94dd0060-f5fc-4bc9-a3fd-6202e3289f5d.mock.pstmn.io/Books
+	@EndpointInject("mock://"+"{{booksDB.host}}"+"/Books") // mock://https://94dd0060-f5fc-4bc9-a3fd-6202e3289f5d.mock.pstmn.io/Books
 	private MockEndpoint bookDetailsEndpoint;
 	
 	@Test
@@ -53,8 +53,10 @@ public class BooksRouteBuilderTest{
 		String bookDetailsRequest = Resources.toString(Resources.getResource("mock/frontend/BookDetails/BookDetailsRequest.json")
 				, Charsets.UTF_8);
 		
+		
 		String bookDetailsResponse = Resources.toString(Resources.getResource("mock/backend/BookDetails/BookDetailsResponse.json")
 				, Charsets.UTF_8);
+		
 		
 		AdviceWith.adviceWith(camelContext, "bookDetails", routeBuilder -> {
 			routeBuilder.replaceFromWith("direct:invoke-book-details");

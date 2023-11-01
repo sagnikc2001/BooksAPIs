@@ -6,10 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 @XmlAccessorType(XmlAccessType.FIELD) // specify the access type for fields when marshalling (converting an object to XML) or unmarshalling (converting XML to an object) in the context of XML binding.
 @XmlType(propOrder = {
 		"bookResponseDetailsBackend",
@@ -18,12 +15,10 @@ import org.springframework.stereotype.Component;
 @XmlRootElement(name = "BookResponse") // Setting the XML root element to BookResponse -- <BookResponse>....</BookResponse>
 public class BookResponseBackend {
 	
-	@Autowired
-	@XmlElement(name="book")
+	@XmlElement(name="Book")
 	protected BookResponseDetailsBackend bookResponseDetailsBackend;
 	
-	@Autowired
-	@XmlElement(name="author")
+	@XmlElement(name="Author")
 	protected AuthorDetailsBackend authorDetailsBackend;
 	
 //	Getters and Setters

@@ -1,10 +1,7 @@
 package com.dhdigital.books.api.model;
 
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Component
 public class AuthorBooks {
 
 	@JsonProperty("bookName")

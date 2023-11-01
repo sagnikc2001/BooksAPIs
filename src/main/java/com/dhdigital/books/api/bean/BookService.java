@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.camel.Exchange;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.apache.camel.Message;
 
 import com.dhdigital.books.api.model.AuthorBooks;
@@ -22,7 +22,7 @@ import com.dhdigital.books.api.model.backend.BookRequestDetailsBackend;
 import com.dhdigital.books.api.model.backend.BookResponseBackend;
 import com.dhdigital.books.api.model.backend.BookResponseDetailsBackend;
 
-@Service("bookService")
+@Component
 public class BookService {
 	
 	public void setBookRequestBackend(Exchange exchange) throws Exception{

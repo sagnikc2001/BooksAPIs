@@ -27,9 +27,9 @@ public class BooksRouteBuilder extends RouteBuilder{
 		
 		rest("/api")
 		
-//		http://localhost:8080/rest/api/Book
+//		http://localhost:8080/api/v1/Book
 		
-		.post("/Book")
+		.post("/v1/Book")
 		 .type(BookRequest.class)
 		 .outType(BookResponse.class)
 		 .produces("application/json")
@@ -41,13 +41,9 @@ public class BooksRouteBuilder extends RouteBuilder{
 		from("direct:invoke-book-details").routeId("bookDetails")
 	    .to("bean:bookService?method=setBookRequestBackend") //Converting from JSON frontend POJO to XML Backend POJO
 	    .marshal().jacksonXml(BookRequestBackend.class) // Marshalling to XML of type BookRequestBackend class
-	    .to("direct:invoke-send-to-backend"); // Direct endpoint to send to the backend
-
-		
-		
-	    from("direct:invoke-send-to-backend")
+//	    .to("direct:invoke-send-to-backend") // Direct endpoint to send to the backend
 	    .setHeader(Exchange.CONTENT_TYPE, constant("application/xml")) // Setting header of type xml for sending request to Backend endpoint
-	    .to("{{BACK_END.host}}"+"/Books?bridgeEndpoint=true") // https://94dd0060-f5fc-4bc9-a3fd-6202e3289f5d.mock.pstmn.io/Books?bridgeEndpoint=true
+	    .to("{{booksDB.host}}"+"/Books?bridgeEndpoint=true") // https://94dd0060-f5fc-4bc9-a3fd-6202e3289f5d.mock.pstmn.io/Books?bridgeEndpoint=true
 	    .unmarshal().jacksonXml(BookResponseBackend.class) // Unmarshalling XML response from backend endpoint to BookResponseBackend class
 	    .to("bean:bookService?method=getBookResponseBackend") // Converting from XML backend POJO to JSON frontend POJO
 	    .setHeader("Content-Type", constant("application/json")); // Setting the header of type JSON as JSON format is expected while declaration -- .produces("application/json")

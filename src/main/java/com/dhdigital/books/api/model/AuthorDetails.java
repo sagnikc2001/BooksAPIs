@@ -2,12 +2,9 @@ package com.dhdigital.books.api.model;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Component
 public class AuthorDetails {
 
 	@JsonProperty("name")
@@ -22,7 +19,6 @@ public class AuthorDetails {
 	@JsonProperty("country")
 	private String country;
 
-	@Autowired
 	@JsonProperty("moreBooks")
 	protected List<AuthorBooks> authorBooks;
 

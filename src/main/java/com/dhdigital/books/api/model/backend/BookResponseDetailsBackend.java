@@ -5,39 +5,34 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-@Component
 @XmlAccessorType(XmlAccessType.FIELD) // specify the access type for fields when marshalling (converting an object to
 										// XML) or unmarshalling (converting XML to an object) in the context of XML
 										// binding.
-@XmlRootElement(name = "book") // Setting the XML root element to book -- <book>....</book>
+@XmlRootElement(name = "Book") // Setting the XML root element to book -- <book>....</book>
 public class BookResponseDetailsBackend {
 
-	@XmlElement // For naming XML Element same as variable -- <bookName>....</bookName>
+	@XmlElement(name = "BookName") // For naming XML Element same as variable -- <bookName>....</bookName>
 	private String bookName;
 
-	@XmlElement
+	@XmlElement(name = "AuthorName")
 	private String authorName;
 
-	@XmlElement
+	@XmlElement(name = "PublisherName")
 	private String publisherName;
 
-	@XmlElement
+	@XmlElement(name = "BookPrice")
 	private int bookPrice;
 
-	@XmlElement
+	@XmlElement(name = "BookGenre")
 	private String bookGenre;
 
-	@XmlElement
+	@XmlElement(name = "BookLanguage")
 	private String bookLanguage;
 
-	@XmlElement
+	@XmlElement(name = "BookPages")
 	private int bookPages;
 
-	@Autowired
-	@XmlElement(name = "link")
+	@XmlElement(name = "Link")
 	private BookBuyBackend bookBuyBackend;
 
 //	Getters and Setters

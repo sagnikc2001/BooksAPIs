@@ -5,19 +5,17 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.springframework.stereotype.Component;
 
-@Component
 @XmlAccessorType(XmlAccessType.FIELD) // specify the access type for fields when marshalling (converting an object to
 										// XML) or unmarshalling (converting XML to an object) in the context of XML
 										// binding.
-@XmlRootElement(name = "link") // Setting the XML root element to link -- <link>....</link>
+@XmlRootElement(name = "Link") // Setting the XML root element to link -- <Link>....</Link>
 public class BookBuyBackend {
 
-	@XmlElement
+	@XmlElement(name = "AmazonBuyLink")
 	private String amazonBuyLink;
 
-	@XmlElement
+	@XmlElement(name = "FlipkartBuyLink")
 	private String flipkartBuyLink;
 
 //	Getters and Setters

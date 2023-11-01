@@ -7,30 +7,26 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 @XmlAccessorType(XmlAccessType.FIELD) // specify the access type for fields when marshalling (converting an object to
 										// XML) or unmarshalling (converting XML to an object) in the context of XML
 										// binding.
-@XmlRootElement(name = "author") // Setting the XML root element to author -- <author>....</author>
+@XmlRootElement(name = "Author") // Setting the XML root element to author -- <author>....</author>
 public class AuthorDetailsBackend {
 
-	@XmlElement // For naming XML Element same as variable -- <name>....</name>
+	@XmlElement(name = "Name") // For naming XML Element same as variable -- <Name>....</Name>
 	private String name;
 
-	@XmlElement
+	@XmlElement(name = "YearBorn")
 	private int yearBorn;
 
-	@XmlElement
+	@XmlElement(name = "NumberOfBooks")
 	private int numberOfBooks;
 
-	@XmlElement
+	@XmlElement(name = "Country")
 	private String country;
 
-	@Autowired
-	@XmlElement(name = "moreBooks")
+	@XmlElement(name = "MoreBooks")
 	protected List<AuthorBooksBackend> authorBooksBackend;
 
 //	Getters and Setters

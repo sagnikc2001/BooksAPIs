@@ -4,12 +4,12 @@ camel:
     name: BooksAPI
   servlet:
     mapping:
-      context-path: /rest/*
+      context-path: /*
   rest:
-    context-path: /rest
+    context-path: /
     
 server:
   port: 8080
   
-BACK_END:
+booksDB:
   host: ${BACKEND_URL}
